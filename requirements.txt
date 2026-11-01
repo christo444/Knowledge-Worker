@@ -1,0 +1,9 @@
+chromadb
+gradio
+langchain-huggingface
+sentence-transformers
+litellm
+python-dotenv
+pydantic
+tenacity
+tqdm
