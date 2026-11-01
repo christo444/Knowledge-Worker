@@ -15,9 +15,10 @@ Gradio chat interface.
 ├── scripts/
 │   ├── __init__.py
 │   └── ingest.py                # Knowledge-base ingestion entry point
-├── knowledge-base/              # Markdown source documents (not committed)
+├── knowledge-base/              # Markdown source documents
 ├── preprocessed_db/             # Persistent Chroma database (generated)
 ├── .env                         # Local API configuration (not committed)
+├── .env.example                 # Credential configuration template
 └── requirements.txt
 ```
 
@@ -30,7 +31,7 @@ Gradio chat interface.
    python -m pip install -r requirements.txt
    ```
 
-3. Configure the required provider credentials in `.env`.
+3. Copy `.env.example` to `.env` and configure your provider credentials.
 4. Place Markdown documents in subfolders under `knowledge-base/`.
 
 ## Run
@@ -47,5 +48,4 @@ Start the chat application:
 python app.py
 ```
 
-The generated `preprocessed_db/` directory and local knowledge-base files are
-ignored by Git because they are runtime data.
+The generated `preprocessed_db/` directory and `.env` file are ignored by Git.
