@@ -1,4 +1,4 @@
-# Insurellm Expert Assistant
+# RAG Knowledge Worker
 
 A retrieval-augmented generation (RAG) assistant that retrieves relevant
 knowledge-base documents, reranks them, and uses them to answer questions in a

@@ -28,8 +28,8 @@ def main():
 
     theme = gr.themes.Soft(font=["Inter", "system-ui", "sans-serif"])
 
-    with gr.Blocks(title="Insurellm Expert Assistant", theme=theme) as ui:
-        gr.Markdown("# 🏢 Insurellm Expert Assistant\nAsk me anything about Insurellm!")
+    with gr.Blocks(title="RAG Knowledge Worker", theme=theme) as ui:
+        gr.Markdown("# 📚 RAG Knowledge Worker\nAsk questions about your knowledge base!")
 
         with gr.Row():
             with gr.Column(scale=1):
@@ -38,7 +38,7 @@ def main():
                 )
                 message = gr.Textbox(
                     label="Your Question",
-                    placeholder="Ask anything about Insurellm...",
+                    placeholder="Ask anything about your knowledge base...",
                     show_label=False,
                 )
 
