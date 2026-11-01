@@ -14,9 +14,25 @@ def format_context(context):
     return result
 
 
+def message_content(content):
+    if isinstance(content, str):
+        return content
+
+    if isinstance(content, dict):
+        return message_content(content.get("text", content.get("content", "")))
+
+    if isinstance(content, list):
+        return "".join(message_content(item) for item in content)
+
+    return str(content)
+
+
 def chat(history):
-    last_message = history[-1]["content"]
-    prior = history[:-1]
+    last_message = message_content(history[-1]["content"])
+    prior = [
+        {"role": message["role"], "content": message_content(message["content"])}
+        for message in history[:-1]
+    ]
     answer, context = answer_question(last_message, prior)
     history.append({"role": "assistant", "content": answer})
     return history, format_context(context)
@@ -28,13 +44,13 @@ def main():
 
     theme = gr.themes.Soft(font=["Inter", "system-ui", "sans-serif"])
 
-    with gr.Blocks(title="RAG Knowledge Worker", theme=theme) as ui:
+    with gr.Blocks(title="RAG Knowledge Worker") as ui:
         gr.Markdown("# 📚 RAG Knowledge Worker\nAsk questions about your knowledge base!")
 
         with gr.Row():
             with gr.Column(scale=1):
                 chatbot = gr.Chatbot(
-                    label="💬 Conversation", height=600, type="messages", show_copy_button=True
+                    label="💬 Conversation", height=600, buttons=["copy"]
                 )
                 message = gr.Textbox(
                     label="Your Question",
@@ -54,7 +70,7 @@ def main():
             put_message_in_chatbot, inputs=[message, chatbot], outputs=[message, chatbot]
         ).then(chat, inputs=chatbot, outputs=[chatbot, context_markdown])
 
-    ui.launch(inbrowser=True)
+    ui.launch(inbrowser=True, theme=theme)
 
 
 if __name__ == "__main__":
